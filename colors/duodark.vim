@@ -163,10 +163,12 @@ call s:h("ModeMsg", {}) " 'showmode' message (e.g., "-- INSERT --")
 call s:h("MoreMsg", {}) " more-prompt
 call s:h("NonText", { "fg": s:neutral_darker }) " '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line).
 call s:h("Normal", { "fg": s:one_lightest, "bg": s:transparent }) " normal text
-call s:h("Pmenu", { "bg": s:neutral_lighter }) " Popup menu: normal item.
-call s:h("PmenuSel", { "fg": s:neutral_darkest, "bg": s:one_lightest }) " Popup menu: selected item.
-call s:h("PmenuSbar", { "bg": s:neutral_lightest }) " Popup menu: scrollbar.
-call s:h("PmenuThumb", { "bg": s:neutral_lighter }) " Popup menu: Thumb of the scrollbar.
+
+call s:h("Pmenu",       { "fg": s:one,              "bg": s:transparent })   " Popup menu: normal item.
+call s:h("PmenuSel",    { "fg": s:neutral_darkest,  "bg": s:one_lightest })  " Popup menu: selected item.
+call s:h("PmenuSbar",   { "fg": s:one,              "bg": s:transparent  })  " Popup menu: scrollbar.
+call s:h("PmenuThumb",  { "fg": s:transparent,      "bg": s:one          })  " Popup menu: scrollbar draggy bit
+
 call s:h("Question", { "fg": s:two_darker }) " hit-enter prompt and yes/no questions
 call s:h("QuickFixLine", { "fg": s:neutral_darkest, "bg": s:two_lighter }) " Current quickfix item in the quickfix window.
 call s:h("Search", { "fg": s:neutral_darkest, "bg": s:two_lighter }) " Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
@@ -179,9 +181,11 @@ call s:h("StatusLine", { "fg": s:neutral_lighter, "bg": s:neutral_lightest }) " 
 call s:h("StatusLineNC", { "fg": s:neutral_darker }) " status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
 call s:h("StatusLineTerm", { "fg": s:neutral_lighter, "bg": s:neutral_lightest }) " status line of current :terminal window
 call s:h("StatusLineTermNC", { "fg": s:neutral_darker }) " status line of non-current :terminal window
-call s:h("TabLine", { "fg": s:neutral_darker }) " tab pages line, not active tab page label
+
+call s:h("TabLine", { "fg": s:one }) " tab pages line, not active tab page label
 call s:h("TabLineFill", {}) " tab pages line, where there are no labels
-call s:h("TabLineSel", { "fg": s:neutral_lighter }) " tab pages line, active tab page label
+call s:h("TabLineSel", { "fg": s:one_lightest }) " tab pages line, active tab page label
+
 call s:h("Terminal", { "fg": s:neutral_lighter, "bg": s:neutral_darkest }) " terminal window (see terminal-size-color)
 call s:h("Title", { "fg": s:two }) " titles for output from ":set all", ":autocmd" etc.
 call s:h("Visual", { "fg": s:neutral_darkest, "bg": s:neutral_lighter }) " Visual mode selection
@@ -198,25 +202,28 @@ call s:h("debugBreakpoint", { "fg": s:neutral_darkest, "bg": s:one }) " a breakp
 " Language-Specific Highlighting {{{
 
 " CSS
-call s:h("cssAttrComma", { "fg": s:two_darker })
-call s:h("cssAttributeSelector", { "fg": s:two })
-call s:h("cssBraces", { "fg": s:neutral_lighter })
-call s:h("cssClassName", { "fg": s:one_darker })
-call s:h("cssClassNameDot", { "fg": s:one_darker })
-call s:h("cssDefinition", { "fg": s:two_darker })
-call s:h("cssFontAttr", { "fg": s:one_darker })
-call s:h("cssFontDescriptor", { "fg": s:two_darker })
-call s:h("cssFunctionName", { "fg": s:one_lightest })
-call s:h("cssIdentifier", { "fg": s:one_lightest })
-call s:h("cssImportant", { "fg": s:two_darker })
-call s:h("cssInclude", { "fg": s:neutral_lighter })
-call s:h("cssIncludeKeyword", { "fg": s:two_darker })
-call s:h("cssMediaType", { "fg": s:one_darker })
-call s:h("cssProp", { "fg": s:two })
-call s:h("cssPseudoClassId", { "fg": s:one_darker })
-call s:h("cssSelectorOp", { "fg": s:two_darker })
-call s:h("cssSelectorOp2", { "fg": s:two_darker })
-call s:h("cssTagName", { "fg": s:one })
+call s:h("cssAttrComma",          { "fg": s:two_darker })
+call s:h("cssAttributeSelector",  { "fg": s:two })
+call s:h("cssBraces",             { "fg": s:neutral_lighter })
+call s:h("cssClassName",          { "fg": s:one_darker })
+call s:h("cssClassNameDot",       { "fg": s:one_darker })
+call s:h("cssDefinition",         { "fg": s:two_darker })
+call s:h("cssFontAttr",           { "fg": s:one_darker })
+call s:h("cssFontDescriptor",     { "fg": s:two_darker })
+call s:h("cssFunctionName",       { "fg": s:one_lightest })
+call s:h("cssIdentifier",         { "fg": s:one_lightest })
+call s:h("cssImportant",          { "fg": s:two_darker })
+call s:h("cssInclude",            { "fg": s:neutral_lighter })
+call s:h("cssIncludeKeyword",     { "fg": s:two_darker })
+call s:h("cssMediaType",          { "fg": s:one_darker })
+call s:h("cssProp",               { "fg": s:two })
+call s:h("cssPseudoClassId",      { "fg": s:one_darker })
+call s:h("cssSelectorOp",         { "fg": s:two_darker })
+call s:h("cssSelectorOp2",        { "fg": s:two_darker })
+call s:h("cssTagName",            { "fg": s:one })
+call s:h("cssValueNumber",        { "fg": s:one })
+" for css variables
+call s:h("cssCustomProp",         { "fg": s:one })
 
 " Fish Shell
 call s:h("fishKeyword", { "fg": s:two_darker })
@@ -476,6 +483,11 @@ call s:h("NeomakeInfoSign", { "fg": s:one_lightest })
 " tpope/vim-fugitive
 call s:h("diffAdded", { "fg": s:green })
 call s:h("diffRemoved", { "fg": s:red })
+
+" neoclide/coc.nvim
+"
+call s:h("CocErrorHighlight", { "fg": s:red, "cterm": "underline" })
+call s:h("CocUnusedHighlight", { "fg": s:red, "cterm": "underline" })
 
 " Git Highlighting
 
